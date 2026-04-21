@@ -38,11 +38,14 @@
     letter-spacing:2px;
     line-height:1.1;
     margin-bottom:4px;
+    padding-right:72px; /* 保留切換按鈕空間，避免文字撞到 */
   }
   body.lang-en .header h1{
     font-family:"DM Sans",sans-serif;
     letter-spacing:-0.8px;
     font-weight:700;
+    font-size:26px; /* 英文標題比較長，縮小字級 */
+    line-height:1.15;
   }
   .header .en{
     font-size:13px;
@@ -50,6 +53,7 @@
     letter-spacing:1.5px;
     opacity:.85;
     font-family:"DM Sans",sans-serif;
+    padding-right:72px;
   }
   body.lang-en .header .en{
     font-family:"Noto Sans TC",sans-serif;
@@ -59,34 +63,35 @@
   /* ═══ LANG SWITCH (inside header) ═══ */
   .lang-switch{
     position:absolute;
-    top:24px;
-    right:24px;
+    top:22px;
+    right:20px;
     display:inline-flex;
-    background:rgba(255,255,255,.15);
-    border:1px solid rgba(255,255,255,.3);
-    border-radius:16px;
-    padding:3px;
+    background:rgba(0,0,0,.14);
+    border:1px solid rgba(255,255,255,.22);
+    border-radius:12px;
+    padding:2px;
     backdrop-filter:blur(6px);
     -webkit-backdrop-filter:blur(6px);
   }
   .lang-btn{
-    padding:5px 14px;
-    font-size:12px;
+    padding:3px 9px;
+    font-size:10.5px;
     font-weight:600;
-    letter-spacing:1px;
-    color:rgba(255,255,255,.78);
+    letter-spacing:.8px;
+    color:rgba(255,255,255,.72);
     border:none;
     background:transparent;
-    border-radius:13px;
+    border-radius:10px;
     cursor:pointer;
     font-family:"DM Sans",sans-serif;
     transition:all .22s ease;
+    min-width:22px;
   }
   .lang-btn:hover{color:#fff}
   .lang-btn.active{
     background:var(--cream);
     color:var(--brown-dark);
-    box-shadow:0 1px 3px rgba(0,0,0,.08);
+    box-shadow:0 1px 2px rgba(0,0,0,.1);
   }
 
   /* ═══ SECTIONS ═══ */
