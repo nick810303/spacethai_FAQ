@@ -212,10 +212,10 @@
     font-size:16px;
   }
 
-  /* ═══ LANGUAGE VISIBILITY ═══ */
-  .lang-zh,.lang-en{display:none}
-  body.lang-zh .lang-zh{display:block}
-  body.lang-en .lang-en{display:block}
+  /* ═══ LANGUAGE VISIBILITY ═══
+     只針對 body 的子元素切換，避免 body 自己被選中 */
+  body.lang-zh .lang-en,
+  body.lang-en .lang-zh{display:none}
   body.lang-zh .btn .lang-zh{display:inline}
   body.lang-en .btn .lang-en{display:inline}
 </style>
