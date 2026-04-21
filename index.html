@@ -226,8 +226,8 @@
 
   <div class="header">
     <div class="lang-switch">
-      <button class="lang-btn active" id="btn-zh" onclick="setLang('zh')">中</button>
-      <button class="lang-btn " id="btn-en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn active" id="btn-zh" onclick="setLang('zh', true)">中</button>
+      <button class="lang-btn " id="btn-en" onclick="setLang('en', true)">EN</button>
     </div>
     <h1 class="lang-zh">常見問答</h1>
     <h1 class="lang-en">Frequently Asked Questions</h1>
@@ -521,18 +521,41 @@
 </div>
 
 <script>
-function setLang(lang){
+function setLang(lang, updateUrl){
+  if(lang !== 'zh' && lang !== 'en') return;
   document.body.classList.remove('lang-zh','lang-en');
   document.body.classList.add('lang-' + lang);
   document.getElementById('btn-zh').classList.toggle('active', lang==='zh');
   document.getElementById('btn-en').classList.toggle('active', lang==='en');
+  // 記住使用者手動切換的選擇
   try{ localStorage.setItem('baan_lang', lang); }catch(e){}
+  // 同步更新網址（不會重新載入頁面）
+  if(updateUrl){
+    try{
+      const url = new URL(window.location.href);
+      url.searchParams.set('lang', lang);
+      history.replaceState(null, '', url);
+    }catch(e){}
+  }
+  // 更新 <html lang> 屬性（對搜尋引擎 & 無障礙友善）
+  document.documentElement.lang = (lang === 'en') ? 'en' : 'zh-Hant';
 }
-// restore preference (使用者之前手動選過的語言會被記住)
-try{
-  const saved = localStorage.getItem('baan_lang');
-  if(saved === 'zh' || saved === 'en') setLang(saved);
-}catch(e){}
+
+// 決定初始語言（優先順序：?lang= 網址參數 > localStorage > 頁面預設）
+(function initLang(){
+  try{
+    const params = new URLSearchParams(window.location.search);
+    const urlLang = params.get('lang');
+    if(urlLang === 'zh' || urlLang === 'en'){
+      setLang(urlLang, false);
+      return;
+    }
+    const saved = localStorage.getItem('baan_lang');
+    if(saved === 'zh' || saved === 'en'){
+      setLang(saved, false);
+    }
+  }catch(e){}
+})();
 </script>
 
 </body>
